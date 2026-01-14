@@ -38,13 +38,19 @@ def _registry() -> SourceRegistry:
         ]
     )
 
+def _filtered_registry(config: dict) -> SourceRegistry:
+    sources_cfg = config.get("sources", {})
+    enabled = list(sources_cfg.get("enabled", []))
+    disabled = list(sources_cfg.get("disabled", []))
+    return _registry().filtered(enabled, disabled)
+
 
 def _cmd_lookup(args) -> int:
     config = load_config(args.config)
     if args.output:
         config["output"]["runs_dir"] = args.output
     inputs = LookupInputs.from_raw(args.username, args.email, args.phone, args.name)
-    result = run_lookup(inputs, _registry(), config)
+    result = run_lookup(inputs, _filtered_registry(config), config)
     print(result["console"])
     return 0
 
@@ -68,9 +74,9 @@ def _cmd_sources_info(args) -> int:
 def _cmd_plan(args) -> int:
     from openfootprint.core.plan import build_plan
 
-    _ = load_config(args.config)
+    config = load_config(args.config)
     inputs = LookupInputs.from_raw(args.username, args.email, args.phone, args.name)
-    plan = build_plan(inputs, _registry())
+    plan = build_plan(inputs, _filtered_registry(config))
     for item in plan:
         print(f"{item.source_id}\t{item.input_type}\t{item.url}")
     return 0
