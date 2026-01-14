@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openfootprint"
+version = "0.1.0"
+description = "Open-source, terminal OSINT tool for public-person research"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "AGPL-3.0-or-later" }
+dependencies = [
+  "requests>=2.31.0",
+  "beautifulsoup4>=4.12.0",
+  "phonenumbers>=8.13.0",
+]
+
+[project.scripts]
+openfootprint = "openfootprint.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
