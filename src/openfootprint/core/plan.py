@@ -9,6 +9,7 @@ class PlannedRequest:
     url: str
     input_type: str
     headers: dict[str, str]
+    transport: str
 
 
 def build_plan(inputs, registry) -> list[PlannedRequest]:
@@ -22,6 +23,7 @@ def build_plan(inputs, registry) -> list[PlannedRequest]:
                     url=request.url,
                     input_type=request.input_type,
                     headers=request.headers,
+                    transport=request.transport,
                 )
             )
     return plan

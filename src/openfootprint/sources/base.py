@@ -8,6 +8,7 @@ class RequestSpec:
     url: str
     input_type: str
     headers: dict[str, str] = field(default_factory=dict)
+    transport: str = "http"
 
 
 @dataclass(frozen=True)
@@ -18,3 +19,4 @@ class Source:
     supported_inputs: set[str]
     build_requests: callable
     parse: callable
+    execute: callable | None = None

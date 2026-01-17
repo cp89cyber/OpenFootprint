@@ -16,6 +16,7 @@ from openfootprint.reporting.console import render_console
 from openfootprint.reporting.json_report import render_json
 from openfootprint.reporting.markdown_report import render_markdown
 from openfootprint.storage.runs import create_run_dir, save_raw_artifact, write_text, write_manifest
+from openfootprint.tools.subprocess import run_command
 
 
 def _http_get(url, headers, timeout):
@@ -47,6 +48,9 @@ def run_lookup(inputs, registry, config):
     for request in plan:
         source = registry.get(request.source_id)
         if not source:
+            continue
+        if request.transport == "tool" and source.execute:
+            findings.extend(source.execute(request, inputs, run_paths, config, run_command))
             continue
         result = fetcher.get(request.url, request.source_id, request.headers)
         raw_info = []
