@@ -19,6 +19,13 @@ DEFAULT_CONFIG = {
     "output": {
         "runs_dir": "runs",
     },
+    "tools": {
+        "python_executable": "python3",
+        "timeout_seconds": 120,
+        "sherlock_path": "third_party/sherlock",
+        "maigret_path": "third_party/maigret",
+        "whatsmyname_path": "third_party/WhatsMyName",
+    },
 }
 
 
