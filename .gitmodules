@@ -1,0 +1,9 @@
+[submodule "third_party/sherlock"]
+	path = third_party/sherlock
+	url = https://github.com/sherlock-project/sherlock
+[submodule "third_party/maigret"]
+	path = third_party/maigret
+	url = https://github.com/soxoj/maigret
+[submodule "third_party/WhatsMyName"]
+	path = third_party/WhatsMyName
+	url = https://github.com/WebBreacher/WhatsMyName

@@ -11,3 +11,9 @@ def test_load_config_merges_defaults(tmp_path: Path):
 
     assert "github" in config["sources"]["enabled"]
     assert config["http"]["timeout_seconds"] == 15
+
+
+def test_config_includes_tools_defaults():
+    config = load_config(None)
+    assert "tools" in config
+    assert "sherlock_path" in config["tools"]

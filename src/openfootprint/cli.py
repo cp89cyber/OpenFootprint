@@ -16,6 +16,9 @@ from openfootprint.sources.blogs.wordpress import SOURCE as WORDPRESS
 from openfootprint.sources.directories.wikidata import SOURCE as WIKIDATA
 from openfootprint.sources.directories.orcid import SOURCE as ORCID
 from openfootprint.sources.directories.openalex import SOURCE as OPENALEX
+from openfootprint.sources.tools.sherlock import SOURCE as SHERLOCK
+from openfootprint.sources.tools.maigret import SOURCE as MAIGRET
+from openfootprint.sources.tools.whatsmyname import SOURCE as WHATS_MY_NAME
 
 from . import __version__
 
@@ -35,8 +38,12 @@ def _registry() -> SourceRegistry:
             WIKIDATA,
             ORCID,
             OPENALEX,
+            SHERLOCK,
+            MAIGRET,
+            WHATS_MY_NAME,
         ]
     )
+
 
 def _filtered_registry(config: dict) -> SourceRegistry:
     sources_cfg = config.get("sources", {})
