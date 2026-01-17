@@ -1,0 +1,9 @@
+{
+  "findings": [],
+  "run_id": "20260117T161934Z",
+  "sources": [
+    "wikidata",
+    "orcid",
+    "openalex"
+  ]
+}
