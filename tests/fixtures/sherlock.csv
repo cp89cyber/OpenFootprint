@@ -1,0 +1,3 @@
+username,name,url_main,url_user,exists,http_status,response_time
+alice,Example,https://example.com,https://example.com/alice,True,200,0.42
+alice,Missing,https://missing.example,https://missing.example/alice,False,404,0.10
