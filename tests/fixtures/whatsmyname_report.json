@@ -1,0 +1,11 @@
+{
+  "username": "alice",
+  "results": [
+    {
+      "site_name": "Example",
+      "url": "https://example.com/alice",
+      "matched": true,
+      "status_code": 200
+    }
+  ]
+}

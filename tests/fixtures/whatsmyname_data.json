@@ -1,0 +1,11 @@
+{
+  "sites": [
+    {
+      "name": "Example",
+      "uri_check": "https://example.com/{account}",
+      "uri_pretty": "https://example.com/{account}",
+      "m_code": 200,
+      "e_code": 404
+    }
+  ]
+}
