@@ -22,15 +22,18 @@ def evaluate_match(site: dict, status_code: int, body: str) -> bool | None:
 def check_site(site: dict, username: str, timeout: int) -> dict | None:
     url = site["uri_check"].replace("{account}", username)
     headers = site.get("headers") or {}
-    if site.get("post_body"):
-        resp = requests.post(
-            url,
-            data=site["post_body"].replace("{account}", username),
-            headers=headers,
-            timeout=timeout,
-        )
-    else:
-        resp = requests.get(url, headers=headers, timeout=timeout)
+    try:
+        if site.get("post_body"):
+            resp = requests.post(
+                url,
+                data=site["post_body"].replace("{account}", username),
+                headers=headers,
+                timeout=timeout,
+            )
+        else:
+            resp = requests.get(url, headers=headers, timeout=timeout)
+    except requests.RequestException:
+        return None
     match = evaluate_match(site, resp.status_code, resp.text)
     if match is not True:
         return None
@@ -52,6 +55,7 @@ def run(data_path: Path, username: str, output_path: Path, timeout: int) -> None
         if item:
             results.append(item)
     output = {"username": username, "results": results}
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(output, indent=2, sort_keys=True), encoding="utf-8")
 
 
