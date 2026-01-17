@@ -20,6 +20,8 @@ from openfootprint.sources.tools.sherlock import SOURCE as SHERLOCK
 from openfootprint.sources.tools.maigret import SOURCE as MAIGRET
 from openfootprint.sources.tools.whatsmyname import SOURCE as WHATS_MY_NAME
 
+from openfootprint.nameintel.command import run_nameintel
+
 from . import __version__
 
 
@@ -89,6 +91,25 @@ def _cmd_plan(args) -> int:
     return 0
 
 
+def _cmd_nameintel(args) -> int:
+    return int(
+        run_nameintel(
+            first=args.first,
+            last=args.last,
+            birth_year=args.birth_year,
+            sherlock=bool(args.sherlock),
+            dorks=bool(args.dorks),
+            dorks_sites=list(args.dorks_sites or []),
+            dorks_limit=int(args.dorks_limit),
+            keywords=args.keywords,
+            crosslinked=bool(args.crosslinked),
+            dry_run=bool(args.dry_run),
+            config_path=args.config,
+            output=args.output,
+        )
+    )
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="openfootprint", description="Public-source OSINT lookup tool")
     parser.add_argument("--version", action="version", version=__version__)
@@ -119,6 +140,21 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--name")
     plan.add_argument("--config")
     plan.set_defaults(func=_cmd_plan)
+
+    nameintel = subparsers.add_parser("nameintel", help="Generate name-based permutations + dorks")
+    nameintel.add_argument("--first", required=True)
+    nameintel.add_argument("--last", required=True)
+    nameintel.add_argument("--birth-year", type=int)
+    nameintel.add_argument("--sherlock", action="store_true")
+    nameintel.add_argument("--dorks", action="store_true")
+    nameintel.add_argument("--dorks-sites", nargs="*", default=["linkedin", "instagram"])
+    nameintel.add_argument("--dorks-limit", type=int, default=1)
+    nameintel.add_argument("--keywords", default="")
+    nameintel.add_argument("--crosslinked", action="store_true")
+    nameintel.add_argument("--dry-run", action="store_true")
+    nameintel.add_argument("--config")
+    nameintel.add_argument("--output")
+    nameintel.set_defaults(func=_cmd_nameintel)
 
     return parser
 
