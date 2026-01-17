@@ -5,3 +5,15 @@
 .venv/
 __pycache__/
 .pytest_cache/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Runtime data
+runs/
+
+# Env
+.env
+.DS_Store
